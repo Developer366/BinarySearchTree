@@ -3,6 +3,7 @@
  * CUS 1151
  */
  import java.util.*;
+
  public class BST{
     
     Node root;
@@ -131,54 +132,56 @@
     	// the function should do nothing.
     	delete(keyword, root);
     }
-    private Node delete(String keyword, Node current){
-		if (current == null){
+   private Node delete(String keyword, Node focusNode){
+   	
+		if (focusNode == null){
 			// the keyword does not exist
-		} else if(keyword.compareTo(current.keyword) < 0){
-			current.l = delete(keyword, current.l);
-		} else if(keyword.compareTo(current.keyword) > 0) {
-			current.r = delete(keyword, current.r);
+		} else if(keyword.compareTo(focusNode.keyword) < 0){
+			focusNode.l = delete(keyword, focusNode.l);
+		} else if(keyword.compareTo(focusNode.keyword) > 0) {
+			focusNode.r = delete(keyword, focusNode.r);
 		} else {
-			if(current.r == null){
-				current = current.l;
+			if(focusNode.r == null){
+				focusNode = focusNode.l;
 			} else {
-				// the node to delete has a left and right side
+				// The node being deleted has two children
 				// find the smallest value on the right subtree
-				Node replacement = min(current.r);
-				// move values into node 
-				current.keyword = replacement.keyword;
-				current.record = replacement.record;
-				current.size = replacement.size;
-				// delete the smallest node
-				current.r = delete(replacement.keyword, current.r);
+				Node replace = smallest(focusNode.r);
+				// Set the new values into node
+				focusNode.keyword = replace.keyword;
+				focusNode.record = replace.record;
+				focusNode.size = replace.size;
+				// delete that smallest value node 
+				focusNode.r = delete(replace.keyword, focusNode.r);
 			}
 		}
-		return current;
+		return focusNode;
 	}
-    private Node min(Node root){
+   
+   private Node smallest(Node root){
 		if(root == null){
-			return null;
+			return null; //Empty 
 		}
 		if(root.l == null){
-			return root;
+			return root; //No Left Child means the smallest is always the root
 		}
-		return min(root.l);
+		return smallest(root.l); //If there is a left child, call the recursive again to go deeper
 	}
-    
-    public void print(){
-        print(root);
-    }
+   
+   public void print(){
+       print(root);
+   }
 
-    private void print(Node t){
-        if (t != null){
-            print(t.l);
-            System.out.println(t.keyword);
-            Record r = t.record;
-            while(r != null){
-            	System.out.println("\t" + r.title);
-                r = r.next;
-            }
-            print(t.r);
-        } 
-    }
+   private void print(Node t){
+       if (t != null){
+           print(t.l);
+           System.out.println(t.keyword);
+           Record r = t.record;
+           while(r != null){
+           	System.out.println("\t" + r.title);
+               r = r.next;
+           }
+           print(t.r);
+       } 
+   }
 }
