@@ -2,13 +2,14 @@
  * Kamil Peza & Yohannes Berhane
  * CUS 1151
  */
- import java.util.*;
 
- public class BST{
+import java.util.*;
+
+public class BST{
     
     Node root;
-
-    private class Node{
+    
+    class Node{
     	
     	String keyword;
         Record record;
@@ -39,7 +40,7 @@
         this.root = null;
     }
       
-        public void insert(String keyword, FileData fd){
+    public void insert(String keyword, FileData fd){
         Record recordToAdd = new Record(fd.id, fd.author, fd.title, null);
         //TODO Write a recursive insertion that adds recordToAdd 
         // to the list of records for the node associated with keyword.
@@ -86,7 +87,7 @@
     	return contains(keyword, root);
     }
     
-    private boolean contains(String keyword, Node root){
+    public boolean contains(String keyword, Node root){
     	Node focusNode = root;
 		// if empty
 		if(focusNode == null) return false;
@@ -107,7 +108,7 @@
     }
     
 
-    private Record getRecords(Node root, String keyword) {
+   public Record getRecords(Node root, String keyword) {
     	Node focusNode = root;
         //TODO Returns the first record for a particular keyword. 
     	// This record will link to other records
@@ -132,7 +133,8 @@
     	// the function should do nothing.
     	delete(keyword, root);
     }
-   private Node delete(String keyword, Node focusNode){
+   
+   public Node delete(String keyword, Node focusNode){
    	
 		if (focusNode == null){
 			// the keyword does not exist

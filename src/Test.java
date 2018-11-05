@@ -99,7 +99,7 @@ class Test{
 	}
 
     public Test(String filename){
-       try{
+    	try{
 
            this.a = new BST();
            this.b = new BufferedReader(new FileReader(filename));
